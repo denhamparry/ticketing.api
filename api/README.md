@@ -1,10 +1,4 @@
-# Ticketing
-
-A sample ticketing system to demo Kubernetes
-
-## Startup
-
-* Execute `startup.sh`.
+# Ticketing.API API
 
 ## API Setup
 
