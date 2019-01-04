@@ -1,5 +1,6 @@
 pool:
-  vmImage: 'ubuntu-16.04'
+  name: Linux
+  # vmImage: 'ubuntu-16.04'
 steps:
   - script: docker build -t $(dockerId)/$(imageName) .
   - script: docker login -u $(dockerId) -p $(dockerPassword)
