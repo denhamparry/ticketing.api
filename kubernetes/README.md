@@ -5,6 +5,8 @@
 ```bash
 $ kubectl apply -f configmap.yml
 configmap/ticketingapi-configmap created
+$ kubectl apply -f secret.yml
+secret/ticketingapi-secret created
 $ kubectl apply -f deployment.yml
 deployment.apps/ticketingapi created
 $ kubectl apply -f svc.yml
@@ -25,6 +27,8 @@ Opening kubernetes service default/ticketingapi in default browser...
 ```bash
 $ kubectl delete -f configmap.yml
 configmap/ticketingapi-configmap deleted
+$ kubectl delete -f secret.yml
+secret/ticketingapi-secret deleted
 $ kubectl delete -f deployment.yml
 deployment.apps/ticketingapi deleted
 $ kubectl apply -f svc.yml
