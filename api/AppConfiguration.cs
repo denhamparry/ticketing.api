@@ -7,5 +7,15 @@ namespace Ticketing.API
             get;
             set;
         }
+        public string ValueFromKubernetesEnvVariable
+        {
+            get;
+            set;
+        }
+        public string ValueOverride
+        {
+            get;
+            set;
+        }
     }
 }

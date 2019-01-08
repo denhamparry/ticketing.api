@@ -21,7 +21,9 @@ namespace Ticketing.API.Controllers
         {
             return new List<string>()
             {
-                $"ValueFromAppSettings: {_appSettings.Value.ValueFromAppSettings}"
+                $"ValueFromAppSettings: {_appSettings.Value.ValueFromAppSettings}",
+                $"ValueFromKubernetesEnvVariableValue: {_appSettings.Value.ValueFromKubernetesEnvVariable}",
+                $"ValueOverride: {_appSettings.Value.ValueOverride}"
             };
         }
     }
