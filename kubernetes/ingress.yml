@@ -16,7 +16,7 @@ spec:
   - host: ticketing-api.eastus.cloudapp.azure.com
     http:
       paths:
-      - path: /
+      - path: /api
         backend:
           serviceName: ticketingapi
           servicePort: 80

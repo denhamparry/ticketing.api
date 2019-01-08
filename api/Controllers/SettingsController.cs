@@ -6,12 +6,12 @@ using Microsoft.Extensions.Options;
 
 namespace Ticketing.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class ConfigMapController : ControllerBase
+    public class SettingsController : ControllerBase
     {
         private IOptionsSnapshot<AppConfiguration> _appSettings;
-        public ConfigMapController(IOptionsSnapshot<AppConfiguration> appSettings)
+        public SettingsController(IOptionsSnapshot<AppConfiguration> appSettings)
         {
             _appSettings = appSettings;
         }
