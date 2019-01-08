@@ -1,0 +1,37 @@
+# ---
+# apiVersion: certmanager.k8s.io/v1alpha1
+# kind: Certificate
+# metadata:
+#   name: tls-secret
+# spec:
+#   secretName: tls-secret-staging
+#   dnsNames:
+#   - ticketing-api.eastus.cloudapp.azure.com
+#   acme:
+#     config:
+#     - http01:
+#         ingressClass: nginx
+#       domains:
+#       - ticketing-api.eastus.cloudapp.azure.com
+#   issuerRef:
+#     name: letsencrypt-staging
+#     kind: ClusterIssuer
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: tls-secret-prod
+spec:
+  secretName: tls-secret-prod
+  dnsNames:
+  - ticketing-api.eastus.cloudapp.azure.com
+  acme:
+    config:
+    - http01:
+        ingressClass: nginx
+      domains:
+      - ticketing-api.eastus.cloudapp.azure.com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+---
