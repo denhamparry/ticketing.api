@@ -1,8 +1,8 @@
 # https://docs.microsoft.com/en-gb/azure/devops/pipelines/languages/docker?view=vsts&tabs=yaml
 variables:
   major: 0
-  minor: 1
-  patch: $[counter('versioncounter', 100)]
+  minor: 2
+  patch: $[counter('versioncounter', 1)]
 
 pool:
   # name: Linux
