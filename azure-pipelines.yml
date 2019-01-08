@@ -1,9 +1,13 @@
 # https://docs.microsoft.com/en-gb/azure/devops/pipelines/languages/docker?view=vsts&tabs=yaml
+variables:
+  major: 0
+  minor: 1
+  patch: $[counter('versioncounter', 100)]
 
 pool:
   # name: Linux
   vmImage: 'ubuntu-16.04'
 steps:
-  - script: docker build -t $(dockerId)/$(imageName) .
+  - script: docker build -t $(dockerId)/$(imageName):$(major).$(minor).$(patch) .
   - script: docker login -u $(dockerId) -p $(dockerPassword)
-  - script: docker push $(dockerId)/$(imageName)
+  - script: docker push $(dockerId)/$(imageName):$(major).$(minor).$(patch)
