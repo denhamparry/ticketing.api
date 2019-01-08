@@ -1,11 +1,10 @@
-# https://docs.microsoft.com/en-gb/azure/devops/pipelines/languages/docker?view=vsts&tabs=yaml
 variables:
   major: 0
   minor: 2
   patch: $[counter('versioncounter', 1)]
 
+name: $(Date:yyyyMMdd).$(major).$(minor).$(patch)
 pool:
-  # name: Linux
   vmImage: 'ubuntu-16.04'
 steps:
   - script: docker build -t $(dockerId)/$(imageName):$(major).$(minor).$(patch) .
