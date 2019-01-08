@@ -23,7 +23,8 @@ namespace Ticketing.API.Controllers
             {
                 $"ValueFromAppSettings: {_appSettings.Value.ValueFromAppSettings}",
                 $"ValueFromKubernetesEnvVariableValue: {_appSettings.Value.ValueFromKubernetesEnvVariable}",
-                $"ValueOverride: {_appSettings.Value.ValueOverride}"
+                $"ValueOverride: {_appSettings.Value.ValueOverride}",
+                $"ValueFromKubernetesSecret: {_appSettings.Value.ValueFromKubernetesSecret}"
             };
         }
     }

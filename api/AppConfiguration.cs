@@ -17,5 +17,10 @@ namespace Ticketing.API
             get;
             set;
         }
+        public string ValueFromKubernetesSecret
+        {
+            get;
+            set;
+        }
     }
 }
