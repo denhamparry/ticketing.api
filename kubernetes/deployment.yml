@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: ticketingapi
-        image: denhamparry/ticketing.api:0.0.7
+        image: denhamparry/ticketing.api:0.2.102-beta
         env:
         - name: ValueFromKubernetesEnvVariable
           valueFrom:
@@ -30,6 +30,11 @@ spec:
             configMapKeyRef:
               name: ticketingapi-configmap
               key: ValueOverride
+        - name: ValueFromKubernetesSecret
+          valueFrom:
+            secretKeyRef:
+              name: ticketingapi-secret
+              key: ValueFromKubernetesSecret
         resources: {}
         terminationMessagePath: "/dev/termination-log"
         terminationMessagePolicy: File
