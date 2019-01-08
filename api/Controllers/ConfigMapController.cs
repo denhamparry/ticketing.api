@@ -21,7 +21,7 @@ namespace Ticketing.API.Controllers
         {
             return new List<string>()
             {
-                $"DatabaseConnectionStringFromAppsettings: {_appSettings.Value.DatabaseConnectionStringFromAppsettings}"
+                $"ValueFromAppSettings: {_appSettings.Value.ValueFromAppSettings}"
             };
         }
     }
