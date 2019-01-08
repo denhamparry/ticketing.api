@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: ticketingapi
-        image: denhamparry/ticketing.api:0.2.102-beta
+        image: denhamparry/ticketing.api:0.2.107-beta
         env:
         - name: ValueFromKubernetesEnvVariable
           valueFrom:
