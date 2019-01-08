@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ticketingapi-configmap
+  namespace: default
+data:
+  ValueFromKubernetesEnvVariable: "This is the value from Kubernetes enviroment variables"
+  ValueOverride: "This value is from the Kubernetes ConfigMap"
+---
