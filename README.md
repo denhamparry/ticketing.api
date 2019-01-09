@@ -8,7 +8,7 @@ A ticketing system to demo Kubernetes
 $ docker run --name ticketing.mongo -d mongo
 ...
 docker build -t denhamparry/ticketing.api:local .
-docker run --rm -it -p 3000:80 --name ticketing.api --link ticketing.mongo:ticketing.mongo -d denhamparry/ticketing.api:local
+docker run --rm -it -p 3000:80 --name ticketing.api --link ticketing.mongo:ticketing.mongo --link ticketing.messaging:ticketing.messaging -d denhamparry/ticketing.api:local
 ...
 ```
 
