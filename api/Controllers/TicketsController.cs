@@ -36,11 +36,10 @@ namespace Ticketing.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Ticket> Create(Ticket ticket)
+        public ActionResult<TicketStatus> Create(Ticket ticket)
         {
-            _ticketService.Create(ticket);
-
-            return CreatedAtRoute("GetTicket", new { id = ticket.Id.ToString() }, ticket);
+            var ticketStatus = _ticketService.Create(ticket);
+            return CreatedAtRoute("GetTicket", new { id = ticket.Id.ToString() }, ticketStatus);
         }
 
         [HttpPut("{id:length(24)}")]

@@ -4,18 +4,28 @@ using Ticketing.API.Models;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Threading.Tasks;
+using RabbitMQ.Client;
+using System.Text;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System;
 
 namespace Ticketing.API.Services
 {
     public class TicketService
     {
         private readonly IMongoCollection<Ticket> _tickets;
+        private readonly ConnectionFactory _factory;
+        private IOptionsSnapshot<AppConfiguration> _appSettings;
 
-        public TicketService(IConfiguration config)
+        public TicketService(IConfiguration config, IOptionsSnapshot<AppConfiguration> appSettings)
         {
+            _factory = new ConnectionFactory() { HostName = config.GetConnectionString("Messaging") };
             var client = new MongoClient(config.GetConnectionString("TicketingDb"));
             var database = client.GetDatabase("TicketingDb");
             _tickets = database.GetCollection<Ticket>("Tickets");
+            _appSettings = appSettings;
         }
 
         public List<Ticket> Get()
@@ -30,10 +40,12 @@ namespace Ticketing.API.Services
             return _tickets.Find<Ticket>(ticket => ticket.Id == docId).FirstOrDefault();
         }
 
-        public Ticket Create(Ticket ticket)
+        public TicketStatus Create(Ticket ticket)
         {
             _tickets.InsertOne(ticket);
-            return ticket;
+            var queued = this.Send(ticket);
+            var ticketStatus = new TicketStatus(ticket, queued);
+            return ticketStatus;
         }
 
         public void Update(string id, Ticket ticketIn)
@@ -51,6 +63,23 @@ namespace Ticketing.API.Services
         public void Remove(ObjectId id)
         {
             _tickets.DeleteOne(ticket => ticket.Id == id);
+        }
+
+        private bool Send(Ticket ticket)
+        {
+            var queued = false;
+            using (var connection = _factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare(queue: _appSettings.Value.MessagingQueue, durable: false, exclusive: false, autoDelete: false, arguments: null);
+                var ticketJson = JsonConvert.SerializeObject(ticket);
+                var ticketBase64Encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(ticketJson));
+                byte[] ticketByte = Convert.FromBase64String(ticketBase64Encoded);
+                var body = ticketByte;
+                channel.BasicPublish(exchange: "", routingKey: _appSettings.Value.MessagingQueue, basicProperties: null, body: body);
+                queued = true;
+            }
+            return queued;
         }
     }
 }
