@@ -22,5 +22,10 @@ namespace Ticketing.API
             get;
             set;
         }
+        public string MessagingQueue
+        {
+            get;
+            set;
+        }
     }
 }
