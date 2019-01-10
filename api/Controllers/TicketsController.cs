@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Ticketing.API.Models;
 using Ticketing.API.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Ticketing.API.Controllers
 {
@@ -37,10 +36,10 @@ namespace Ticketing.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Ticket>> CreateAsync(Ticket ticket)
+        public ActionResult<TicketStatus> Create(Ticket ticket)
         {
-            ticket = await _ticketService.CreateAsync(ticket);
-            return CreatedAtRoute("GetTicket", new { id = ticket.Id.ToString() }, ticket);
+            var ticketStatus = _ticketService.Create(ticket);
+            return CreatedAtRoute("GetTicket", new { id = ticket.Id.ToString() }, ticketStatus);
         }
 
         [HttpPut("{id:length(24)}")]
