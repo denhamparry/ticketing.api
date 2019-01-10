@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Ticketing.API.Models;
 using Ticketing.API.Services;
 using Microsoft.AspNetCore.Mvc;
-using MassTransit;
 using System.Threading.Tasks;
 
 namespace Ticketing.API.Controllers
@@ -12,12 +11,10 @@ namespace Ticketing.API.Controllers
     public class TicketsController : ControllerBase
     {
         private readonly TicketService _ticketService;
-        private readonly IBus _bus;
 
-        public TicketsController(TicketService ticketService, IBus bus)
+        public TicketsController(TicketService ticketService)
         {
             _ticketService = ticketService;
-            _bus = bus;
         }
 
         [HttpGet]
@@ -42,8 +39,7 @@ namespace Ticketing.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Ticket>> CreateAsync(Ticket ticket)
         {
-            ticket = _ticketService.Create(ticket);
-            await _bus.Publish<Ticket>(ticket);
+            ticket = await _ticketService.CreateAsync(ticket);
             return CreatedAtRoute("GetTicket", new { id = ticket.Id.ToString() }, ticket);
         }
 
