@@ -21,11 +21,15 @@ namespace Ticketing.API.Services
 
         public TicketService(IConfiguration config, IOptionsSnapshot<AppConfiguration> appSettings)
         {
+            _appSettings = appSettings;
+
             _factory = new ConnectionFactory() { HostName = config.GetConnectionString("Messaging") };
+            _factory.UserName = _appSettings.Value.MessagingUsername;
+            _factory.Password = _appSettings.Value.MessagingPassword;
+            
             var client = new MongoClient(config.GetConnectionString("TicketingDb"));
             var database = client.GetDatabase("TicketingDb");
             _tickets = database.GetCollection<Ticket>("Tickets");
-            _appSettings = appSettings;
         }
 
         public List<Ticket> Get()

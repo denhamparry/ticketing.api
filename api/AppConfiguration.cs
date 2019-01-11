@@ -27,5 +27,15 @@ namespace Ticketing.API
             get;
             set;
         }
+        public string MessagingUsername
+        {
+            get;
+            set;
+        }
+        public string MessagingPassword
+        {
+            get;
+            set;
+        }
     }
 }
