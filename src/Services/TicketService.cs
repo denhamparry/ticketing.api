@@ -69,12 +69,14 @@ namespace Ticketing.API.Services
             _tickets.DeleteOne(ticket => ticket.Id == id);
         }
 
-        public uint QueueSize()
+        public string Metrics()
         {
             using (IConnection connection = _factory.CreateConnection())
             using (IModel channel = connection.CreateModel())
             {
-                return channel.MessageCount(_appSettings.Value.MessagingQueue);
+                return "# HELP tickets Number of tickets in the queueService\n"
+                + "# TYPE tickets gauge\n"
+                + $"tickets {channel.MessageCount(_appSettings.Value.MessagingQueue)}";
             }
         }
 
