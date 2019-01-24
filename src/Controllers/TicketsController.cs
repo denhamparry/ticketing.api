@@ -35,13 +35,6 @@ namespace Ticketing.API.Controllers
             return ticket;
         }
 
-        [HttpGet]
-        [Route("QueueSize")]
-        public ActionResult<uint> QueueSize()
-        {
-            return _ticketService.QueueSize();
-        }
-
         [HttpPost]
         public ActionResult<TicketStatus> Create(Ticket ticket)
         {
