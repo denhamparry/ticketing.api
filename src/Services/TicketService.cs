@@ -69,6 +69,15 @@ namespace Ticketing.API.Services
             _tickets.DeleteOne(ticket => ticket.Id == id);
         }
 
+        public uint QueueSize()
+        {
+            using (IConnection connection = _factory.CreateConnection())
+            using (IModel channel = connection.CreateModel())
+            {
+                return channel.MessageCount(_appSettings.Value.MessagingQueue);
+            }
+        }
+
         private bool Send(Ticket ticket)
         {
             var queued = false;
