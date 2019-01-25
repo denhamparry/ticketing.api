@@ -43,7 +43,7 @@ namespace Ticketing.API
             {
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

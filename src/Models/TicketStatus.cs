@@ -8,20 +8,14 @@ namespace Ticketing.API.Models
         public TicketStatus(Ticket ticket)
         {
             Id = ticket.Id;
-            TicketBrowser = ticket.TicketBrowser;
-            TicketCategory = ticket.TicketCategory;
-            TicketName = ticket.TicketName;
-            TicketSpeaker = ticket.TicketSpeaker;
+            TicketURL = ticket.TicketURL;
             Queued = false;
         }
 
         public TicketStatus(Ticket ticket, bool queued)
         {
             Id = ticket.Id;
-            TicketBrowser = ticket.TicketBrowser;
-            TicketCategory = ticket.TicketCategory;
-            TicketName = ticket.TicketName;
-            TicketSpeaker = ticket.TicketSpeaker;
+            TicketURL = ticket.TicketURL;
             Queued = queued;
         }
         public bool Queued { get; set; }
